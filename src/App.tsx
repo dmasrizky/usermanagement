@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// src/App.tsx
+import React, { useState, useContext } from 'react';
+import { UserProvider, UserContext } from './context/UserContext';
+import UserList from './components/UserList';
+import UserDetails from './components/UserDetails';
+import { Container, Button } from '@mui/material';
+import { User } from './types/User';
 
-function App() {
+const App: React.FC = () => {
+  const { state, dispatch } = useContext(UserContext);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAddUser = () => {
+    setSelectedUser(null);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserProvider>
+      <Container>
+        <Button variant="contained" onClick={handleAddUser}>
+          Add User
+        </Button>
+        <UserList setSelectedUser={setSelectedUser} setOpen={setIsModalOpen} />
+        <UserDetails
+          open={isModalOpen}
+          setOpen={setIsModalOpen}
+          selectedUser={selectedUser}
+        />
+      </Container>
+    </UserProvider>
   );
-}
+};
 
 export default App;
