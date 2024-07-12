@@ -13,4 +13,4 @@ This is a user management application built with React, TypeScript, and MUI.
 - View user list
 - View user details in a modal
 
-  This website can also be accessed by the public at http://usermanagement.unaux.com/
+  This website can also be accessed by the public at http://usermanagement.unaux.com/?i=1
